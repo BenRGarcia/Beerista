@@ -1,0 +1,24 @@
+{
+  "name": "beerista",
+  "version": "1.0.0",
+  "description": "A full-stack web app to unleash your inner beer snobbery",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BenRGarcia/Beerista.git"
+  },
+  "author": "Ben Garcia, Jason Aron, Melissa Burnham, Davis Troxler",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/BenRGarcia/Beerista/issues"
+  },
+  "homepage": "https://github.com/BenRGarcia/Beerista#readme",
+  "devDependencies": {
+    "eslint": "^4.19.1",
+    "nodemon": "^1.17.3",
+    "sequelize-cli": "^4.0.0"
+  }
+}
