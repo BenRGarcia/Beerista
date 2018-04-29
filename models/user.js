@@ -29,5 +29,11 @@ module.exports = (sequelize, DataTypes) => {
     user.password = bcrypt.hashSync(user.password, bcrypt.genSaltSync(10), null)
   })
 
+  User.associate = models => {
+    User.hasMany(models.BeerLog, {
+      onDelete: 'CASCADE'
+    })
+  }
+
   return User
 }
