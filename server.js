@@ -10,6 +10,11 @@ const exphbs = require('express-handlebars')
 const hbs = exphbs.create({ defaultLayout: 'main' })
 const db = require('./models')
 
+// Routes
+const routes = require('./routes/index.js')
+const users = require('./routes/users.js')
+const dashboard = require('./routes/dashboard.js')
+
 // Mount middleware
 app.use(helmet())
 app.use(express.urlencoded({ extended: true }))
@@ -28,10 +33,9 @@ app.use(sassMiddleware({
 }))
 
 // Routers
-const routes = require('./routes/index.js')
 app.use('/', routes)
-const users = require('./routes/apiRoutes.js')
 app.use('/api/users', users)
+app.use('/api/dashboard', dashboard)
 
 // Catch 404, forward to error handler
 app.use((req, res, next) => {
