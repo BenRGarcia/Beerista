@@ -26,10 +26,13 @@
     </title>
   </head>
   <body>
+    {{> navigation }}
     {{!-- Bootstrap container --}}
     <div class="container-fluid">
+      {{> header }}
       {{{ body }}}
     </div>
+    {{> footer }}
     {{!-- jQuery --}}
     <script
       src="/javascripts/jquery-3.3.1.min.js"
