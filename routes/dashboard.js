@@ -1,6 +1,7 @@
 const express = require('express')
 const db = require('../models')
 const router = express.Router()
+const isAuthenticated = require('../config/isAuthenticated')
 
 /**
  * Path '/api/dashboard'
@@ -8,12 +9,11 @@ const router = express.Router()
 
 // Dashboard
 router.route('/:id')
-  .get((req, res, next) => {
-    if (!req.user) {
-      res.json({})
-    } else {
-      db.findOne({ where: { id: req.params.id } })
-        .then()
-        .catch()
-    }
+  .get(isAuthenticated, (req, res, next) => {
+    db.User.findOne({
+      where: { id: req.params.id },
+      include: [{ model: db.BeerLog }]
+    })
+      .then(beerLogs => res.json(beerLogs))
+      .catch(err => res.json(err))
   })
