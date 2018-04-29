@@ -28,10 +28,10 @@ app.use(sassMiddleware({
 }))
 
 // Routers
-const apiRouter = require('./routes/apiRoutes.js')
-app.use('/api', apiRouter)
-const htmlRouter = require('./routes/htmlRoutes.js')
-app.use('/', htmlRouter)
+const routes = require('./routes/index.js')
+app.use('/', routes)
+const users = require('./routes/apiRoutes.js')
+app.use('/api/users', users)
 
 // Catch 404, forward to error handler
 app.use((req, res, next) => {
