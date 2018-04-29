@@ -1,25 +1,25 @@
+// Dependencies
 const express = require('express')
 const app = express()
+const path = require('path')
 const session = require('express-session')
 const passport = require('./config/passport')
 const helmet = require('helmet')
-const exphbs = require('express-handlebars')
-const path = require('path')
-const db = require('./models')
 const sassMiddleware = require('node-sass-middleware')
+const exphbs = require('express-handlebars')
+const hbs = exphbs.create({ defaultLayout: 'main' })
+const db = require('./models')
 
 // Mount middleware
 app.use(helmet())
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 app.use(express.static(path.join(__dirname, 'public')))
-
-// Authentication
+app.engine('handlebars', hbs.engine)
+app.set('view engine', 'handlebars')
 app.use(session({ secret: 'keyboard cat', resave: true, saveUninitialized: true }))
 app.use(passport.initialize())
 app.use(passport.session())
-
-// Sass compiler
 app.use(sassMiddleware({
   src: path.join(__dirname, 'public'),
   dest: path.join(__dirname, 'public'),
@@ -27,18 +27,11 @@ app.use(sassMiddleware({
   sourceMap: false
 }))
 
-// Handlebars
-const hbs = exphbs.create({ defaultLayout: 'main' })
-app.engine('handlebars', hbs.engine)
-app.set('view engine', 'handlebars')
-
-// HTML Router
-const htmlRouter = require('./routes/index.js')
+// Routers
+const apiRouter = require('./routes/apiRoutes.js')
+app.use('/api', apiRouter)
+const htmlRouter = require('./routes/htmlRoutes.js')
 app.use('/', htmlRouter)
-
-// API Router
-const apiRouter = require('./routes/...js')
-app.use('/api/...', apiRouter)
 
 // Catch 404, forward to error handler
 app.use((req, res, next) => {
@@ -47,7 +40,7 @@ app.use((req, res, next) => {
   next(err)
 })
 
-// error handler (no stack trace outside dev env)
+// Error handler (no stack trace outside dev env)
 app.use((err, req, res, next) => {
   res
     .status(err.status || 500)
