@@ -3,6 +3,10 @@ const db = require('../models')
 const passport = require('../config/passport')
 const router = express.Router()
 
+/**
+ * Path '/api/users'
+ */
+
 // User sign up
 router.route('/signup')
   .post((req, res, next) => {
