@@ -58,6 +58,6 @@ app.use((err, req, res, next) => {
 const PORT = process.env.PORT || 8080
 
 // Initialize database
-db.sequelize.sync()
+db.sequelize.sync({ force: true })
   // Start server
   .then(() => app.listen(PORT, () => console.log(`Server listening on: http://localhost:${PORT}`)))
